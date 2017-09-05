@@ -187,7 +187,7 @@
         var titulo = "Cadastro de usuários";
         var conteudo = "Deseja cadastrar o usuário \'"
                 + usuarioNovo.nome + "\' ?";
-
+        
         var callback = function ()
         {
             $.post('cadastrar-usuario',
@@ -293,9 +293,10 @@
                 pagination: true,
                 pagelist: [10, 100, 250], sidePagination: 'server',
                 columns: [
-                    {field: 'nome', title: 'Nome', width: '70%'},
-                    {field: 'usr', title: 'usuário', width: '20%'},
-                    {field: 'ativo', title: 'ativo', width: '10%'}
+                    {field: 'nome', title: 'Nome', width: '50%'},
+                    {field: 'usr', title: 'Usuário', width: '20%'},
+                    {field: 'admin', title: 'Admin', width: '20%'},
+                    {field: 'ativo', title: 'Ativo', width: '10%'}
                 ],
                 onClickRow: function (row) {
                     usuarioAntigo = row;
@@ -307,9 +308,9 @@
                     $('#ativo').val(row.ativo);
                     $('#inativo').prop("checked", !row.ativo);
 
-                    $('#normal').val(row.ativo);
-                    $('#normal').prop("checked", row.ativo);
-                    $('#admin').prop("checked", !row.ativo);
+                    $('#normal').val(!row.admin);
+                    $('#normal').prop("checked", !row.admin);
+                    $('#admin').prop("checked", row.admin);
 
                     for (var i = 0; i < tiposObjetos.length; i ++)
                         $('#tipoObjeto' + tiposObjetos[i].id).prop('checked', false);

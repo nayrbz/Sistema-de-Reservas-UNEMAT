@@ -4,7 +4,7 @@ module.exports.recuperarObjetos = (application, request, response) =>
     const txconsulta = request.query.txconsulta === undefined ? '%' : '%' + request.query.txconsulta % '%';
     const limit = request.query.limit;
     const offset = request.query.offset;
-    
+
     const callback = (error, results) =>
     {
         if (error)
@@ -21,10 +21,10 @@ module.exports.recuperarObjetos = (application, request, response) =>
             ));
         }
     };
-    
+
     const connection = application.config.dbConnection;
     const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
-    
+
     PeriodosDAO.buscaIntervalo(txconsulta, limit, offset, callback);
 };
 
@@ -45,8 +45,12 @@ module.exports.inserir = (application, request, response) =>
         } else
         {
             if (results.rowCount === 0)
-                PeriodosDAO.inserir(dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, dadosForm.ativo, callbackInsercao);
-            else
+            {
+                if (dadosForm.ativo === 'true')
+                    PeriodosDAO.inserirAtivo(dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, callbackInsercao);
+                else
+                    PeriodosDAO.inserirInativo(dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, callbackInsercao);
+            } else
                 response.send({status: 'alert', title: 'Erro!', msg: 'Período já existe no banco.'});
         }
     };
@@ -60,11 +64,11 @@ module.exports.inserir = (application, request, response) =>
         } else
             response.send({status: 'success', title: 'Sucesso!', msg: 'Período cadastrado com sucesso!'});
     };
-    
+
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
-    
+
     PeriodosDAO.busca(dadosForm.nome, callbackVerificacao);
 };
 /*              ATUALIZAÇÃO DE PERIODOS                                */

@@ -89,11 +89,10 @@ class PeriodosDAO
      * @param {char} nome
      * @param {bigint} data_inicio
      * @param {bigint} data_fim
-     * @param {boolean} ativo
      * @param {function} callback
      * @returns {undefined}
      */
-    inserir(nome, data_inicio, data_fim, ativo, callback)
+    inserirAtivo(nome, data_inicio, data_fim, callback)
     {
         const text = `UPDATE
                         ${this._tabela}
@@ -104,7 +103,25 @@ class PeriodosDAO
                     INSERT INTO
                         ${this._tabela} (nome, data_inicio, data_fim, ativo)
                     VALUES
-                        (\'${nome}\', ${data_inicio}, ${data_fim}, ${ativo});`;
+                        (\'${nome}\', ${data_inicio}, ${data_fim}, true);`;
+//        console.log(text);
+        this._pool.query(text, callback);
+    }
+    
+        /*
+     * função para inserir um novo período no banco
+     * @param {char} nome
+     * @param {bigint} data_inicio
+     * @param {bigint} data_fim
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    inserirInativo(nome, data_inicio, data_fim, callback)
+    {
+        const text = `INSERT INTO
+                        ${this._tabela} (nome, data_inicio, data_fim, ativo)
+                    VALUES
+                        (\'${nome}\', ${data_inicio}, ${data_fim}, false);`;
 //        console.log(text);
         this._pool.query(text, callback);
     }
