@@ -1,0 +1,38 @@
+{
+  "name": "reservas",
+  "version": "0.9.1",
+  "description": "Sistema de Reservas de equipamentos, salas e laboratórios da UNEMAT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CosmeLorim/CosmeLorim-Sistema-de-Reservas---UNEMAT"
+  },
+  "keywords": [
+    "reservas",
+    "equipamentos",
+    "salas",
+    "laboratorios",
+    "nodejs"
+  ],
+  "author": "Cosme da Silva Lorim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CosmeLorim/reservasequiplabunemat/issues"
+  },
+  "homepage": "https://github.com/CosmeLorim/reservasequiplabunemat#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "consign": "^0.1.6",
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.1",
+    "md5": "^2.2.1",
+    "pg": "^6.4.1",
+    "pmx": "^1.2.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,401 @@
+<center><h1>Administração de Reservas</h1></center>
+<div class="container">
+    <div class="grid">
+        <div class="flex-grid">
+            <div class="row cell-auto-size">
+                <div class="tabcontrol2" data-role="tabcontrol">
+                    <ul class="tabs">
+                        <li><a href="#frame_1_1">Operações</a></li>
+                        <li><a href="#frame_1_2">Manuteção</a></li>
+                    </ul>
+                    <div class="frames bg-grayLight">
+                        <div class="frame" id="frame_1_1">
+                            <!--forms para reserva-->
+                            <div class="row">
+                                <div class="cell">
+                                    <div class="panel success">
+                                        <div class="heading">
+                                            <span class="title">Oferecimento</span>
+                                        </div>
+                                        <div class="input-control modern text place-right" data-role="input" style="width: 100%;">
+                                            <input id="txconsultaoferecimentos" type="text">
+                                            <span class="label">Localizar</span>
+                                            <span class="informer">Digite o termo da busca</span>
+                                            <span class="placeholder">Digite o termo da busca</span>
+                                            <button id="btnConsultaOferecimento" class="button"><span class="mif-search"></span></button>
+                                        </div>
+                                        <table id="gridOferecimentos">
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="panel success">
+                                        <div class="heading">
+                                            <span class="title">Objeto</span>
+                                        </div>
+                                        <div class="input-control modern text place-right" data-role="input" style="width: 100%;">
+                                            <input id="txconsultaobjetos" type="text">
+                                            <span class="label">Localizar</span>
+                                            <span class="informer">Digite o termo da busca</span>
+                                            <span class="placeholder">Digite o termo da busca</span>
+                                            <button id="btnConsultaObjeto" class="button"><span class="mif-search"></span></button>
+                                        </div>
+                                        <table id="gridObjetos">
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel success">
+                                <div class="heading">
+                                    <span class="title">Reserva</span>
+                                </div>
+                                <div class="row">
+                                    <div class="cell">
+                                        <div class="row">
+                                            <div class="cell">
+                                                <h4>Matutino</h4>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="mat_aula_1">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-01</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="mat_aula_2">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-02</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="mat_aula_3">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-03</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="mat_aula_4">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-04</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="cell">
+                                                <h4>Vespertino</h4>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="vesp_aula_1">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-01</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="vesp_aula_2">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-02</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="vesp_aula_3">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-03</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="vesp_aula_4">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-04</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="cell">
+                                                <h4>Noturno</h4>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="not_aula_1">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-01</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="not_aula_2">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-02</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="not_aula_3">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-03</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="not_aula_4">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Aula-04</span>
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="cell">
+                                                <h4>Especiais</h4>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="almoco">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Almoço</span>
+                                                    </label>
+                                                </div>
+                                                <div class="content">
+                                                    <label class="input-control checkbox">
+                                                        <input type="checkbox" name="horario" value="janta">
+                                                        <span class="check"></span>
+                                                        <span class="caption">Janta</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cell">
+                                        <div data-role="calendar" id="reservadatas" data-day-click="atualizaSumarioDatas()" data-multi-select="true"></div>
+                                        <label class="block">Descrição da operação:</label>
+                                        <div class="input-control text" style="width: 100%;">
+                                            <textarea
+                                                id="descricaooperacao"
+                                                name="descricao"></textarea> 
+                                        </div>
+                                    </div>
+                                    <div class="frame" id="frame_1_2">
+                                        <!--forms para manuteção-->
+                                        <div class="panel success">
+                                            <div class="heading">
+                                                <span class="title">Sumário</span>
+                                            </div>
+                                            <input id="oferecimentoid" value="" hidden="">
+                                            <p>Oferecimento: <span id="oferecimentoselecionado"></span></p>
+                                            <input id="objetoid" value="" hidden="">
+                                            <p>Objeto: <span id="objetoselecionado"></span></p>
+                                            <p>Datas: <span id="diasselecionados"></span></p>
+                                            <button id="efetuarreserva" class="button primary">Efetuar Reserva</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function atualizaSumarioDatas()
+    {
+//        var datas = $('#reservadatas').calendar('getDates').toString();
+//        $('#diasselecionados').html(datas);
+
+        console.log($("").val());
+
+        var datas = $('#reservadatas').calendar('getDates');
+        $('#diasselecionados').html('');
+        for (var i = 0; i < datas.length; i++) {
+            $('#diasselecionados').append('<p>' + datas[i] + ' </p>');
+        }
+    }
+
+    $('#efetuarreserva').on('click', function () {
+        var reservaNova = new Reserva();
+
+        reservaNova.oferecimento = $('#oferecimentoid').val();
+        if (!reservaNova.validaOferecimento(reservaNova.oferecimento))
+            return;
+
+        reservaNova.objeto = $('#objetoid').val();
+        if (!reservaNova.validaObjeto(reservaNova.objeto))
+            return;
+
+        $('input[name="horario"]').each(function ()
+        {
+            reservaNova.horarios.push({checked: $(this).is(':checked'), campo: $(this).val()});
+        });
+        if (!reservaNova.validaHorarios(reservaNova.horarios))
+            return;
+
+        reservaNova.datas = $('#reservadatas').calendar('getDates');
+        for (var i = 0; i < reservaNova.datas.length; i++) {
+            reservaNova.datas[i] = parseInt(moment(reservaNova.datas[i]).format('X'));
+        }
+        if (!reservaNova.validaDatas(reservaNova.datas))
+            return;
+
+        reservaNova.descricaoOperacao = $('#descricaooperacao').val();
+        if (!reservaNova.validaDescricaoOperacao(reservaNova.descricaoOperacao))
+            return;
+        
+        var admin = new Admin();
+        var titulo = "Cadastro de reserva";
+        var conteudo = "Deseja efetuar a reserva?";
+        var callback = function ()
+        {
+            $.post('cadastrar-reserva',
+                    {
+                        oferecimento: reservaNova.oferecimento,
+                        objeto: reservaNova.objeto,
+                        horarios: reservaNova.horarios,
+                        datas: reservaNova.datas,
+                        descricaoOperacao: reservaNova.descricaoOperacao
+                    }, function (data, status)
+            {
+                $.Notify(
+                        {
+                            caption: data.title,
+                            content: data.msg,
+                            timeout: 10000,
+                            type: data.status
+                        });
+                if (data.status === 'success')
+                {
+//                    window.alert("sucesso meu parça");
+                }else
+                {
+                    //informar onde não rolou a reserva
+                }
+            });
+        };
+        admin.dialog(titulo, conteudo, callback);
+    });
+    $('#atualizarPeriodo').on('click', function () {
+        var periodoNovo = new Periodo();
+        if (!periodoNovo.validaNome($('#nome').val()))
+            return;
+        periodoNovo.nome = $('#nome').val();
+        var data_inicio = parseInt(moment($("#data").data('daterangepicker').startDate).format('X'));
+        var data_fim = parseInt(moment($("#data").data('daterangepicker').endDate).format('X'));
+        if (!periodoNovo.validaDatas(data_inicio, data_fim))
+            return;
+        periodoNovo.data_inicio = data_inicio;
+        periodoNovo.data_fim = data_fim;
+        periodoNovo.ativo = $('#ativo').prop('checked');
+        var admin = new Admin();
+        var titulo = "Cadastro de período";
+        var conteudo = "Deseja cadastrar o período \'"
+                + periodoNovo.nome + "\' e "
+                + "com ativo \'" + periodoNovo.ativo + '\'?';
+        var callback = function ()
+        {
+            $.post('atualizar-periodo',
+                    {
+                        id: periodoAntigo.id,
+                        nome: periodoNovo.nome,
+                        ativo: periodoNovo.ativo,
+                        data_inicio: periodoNovo.data_inicio,
+                        data_fim: periodoNovo.data_fim
+                    },
+                    function (data, status)
+                    {
+                        $.Notify({
+                            caption: data.title,
+                            content: data.msg,
+                            timeout: 10000,
+                            type: data.status
+                        });
+                        if (data.status === 'success')
+                        {
+                            $("#gridPeriodos").bootstrapTable('refresh', {
+                                url: "/periodos"
+                            });
+                            limpaTelaPeriodos();
+                        }
+                    });
+        };
+        admin.dialog(titulo, conteudo, callback);
+    });
+
+    $('#btnConsultaOferecimento').on('click', function ()
+    {
+        console.log($('#txconsultaoferecimentos').val());
+        $("#gridOferecimentos").bootstrapTable('refresh', {
+            url: "/oferecimentos?usuario=" + $('#txconsultaoferecimentos').val()
+        });
+    });
+
+    $('#btnConsultaObjeto').on('click', function ()
+    {
+        $("#gridObjetos").bootstrapTable('refresh', {
+            url: "/objetos?txconsulta=" + $('#txconsultaobjetos').val()
+        });
+    });
+
+    var periodoAntigo = new Periodo();
+    var admin = new Admin();
+    $("#gridOferecimentos").bootstrapTable({
+        url: "/oferecimentos",
+        pageSize: 10,
+        pagination: true,
+        pagelist: [10, 100, 250], sidePagination: 'server',
+        columns: [
+            {field: 'usuarionome', title: 'Nome', width: '45%'},
+            {field: 'usuariousr', title: 'Usuário', width: '15%'},
+            {field: 'periodonome', title: 'Período', width: '10%'},
+            {field: 'disciplina', title: 'Disciplina', width: '20%'},
+            {field: 'sigla', title: 'Curso', width: '10%'}
+        ],
+        onClickRow: function (row)
+        {
+            $('#oferecimentoselecionado').html('<strong>' + row.usuariousr + '-' + row.periodonome + '-' + row.disciplina + '</strong>');
+            $('#oferecimentoselecionado').val(row.usuariousr + '-' + row.periodonome + '-' + row.disciplina);
+            $('#oferecimentoid').val(row.id);
+        }
+    });
+    $('#btnConsulta').on('click', function ()
+    {
+        $("#gridObjetos").bootstrapTable('refresh', {
+            url: "/objetos?txconsulta=" + $('#txconsulta').val()
+        });
+    });
+    $("#gridObjetos").bootstrapTable({
+        url: "/objetos",
+        pageSize: 10,
+        pagination: true,
+        pagelist: [8, 14, 21],
+        sidePagination: 'server',
+        columns: [
+            {field: 'objetodescricao', title: 'Objeto', halign: 'center', width: '45%'},
+            {field: 'tipoobjetodescricao', title: 'Categoria', width: '45%'}
+        ],
+        onClickRow: function (row) {
+            $('#objetoselecionado').html('<strong>' + row.objetodescricao + '-' + row.tipoobjetodescricao + '</strong>');
+            $('#objetoselecionado').val(row.objetodescricao + '-' + row.tipoobjetodescricao);
+            $('#objetoid').val(row.objetoid);
+        }
+    });
+    function utxToData(val) {
+        var d = moment.unix(val);
+        return moment(d).format('DD/MM/YYYY');
+    }
+
+    function limpaTelaPeriodos()
+    {
+        //        TO DO
+    }
+    $("tbody").on("click", "tr", function (e) {
+        $(this)
+                .toggleClass("selected")
+                .siblings(".selected")
+                .removeClass("selected");
+    });
+</script>

@@ -1,0 +1,87 @@
+/*              RECUPERAÇÃO DE DADOS DE PERIODOS                                */
+module.exports.recuperarObjetos = (application, request, response) =>
+{
+    const txconsulta = request.query.txconsulta === undefined ? '%' : '%' + request.query.txconsulta % '%';
+    const limit = request.query.limit;
+    const offset = request.query.offset;
+    
+    const callback = (error, results) =>
+    {
+        if (error)
+        {
+            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
+            console.log('Erro: na recuperação dos objetos', error);
+        } else
+        {
+            response.send(JSON.stringify(
+                    {
+                        total: results.rowCount,
+                        rows: results.rows
+                    }
+            ));
+        }
+    };
+    
+    const connection = application.config.dbConnection;
+    const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
+    
+    PeriodosDAO.buscaIntervalo(txconsulta, limit, offset, callback);
+};
+
+/*              ADMINISTRAÇÃO DOS PERIODOS                                */
+module.exports.administrar = (application, request, response) =>
+{
+    response.render('admin/periodos');
+};
+/*               CADASTRO DE PERIODOS                                */
+module.exports.inserir = (application, request, response) =>
+{
+    const callbackVerificacao = (error, results) =>
+    {
+        if (error)
+        {
+            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
+            console.log('Erro na verificação de períodos: ', error);
+        } else
+        {
+            if (results.rowCount === 0)
+                PeriodosDAO.inserir(dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, dadosForm.ativo, callbackInsercao);
+            else
+                response.send({status: 'alert', title: 'Erro!', msg: 'Período já existe no banco.'});
+        }
+    };
+
+    const callbackInsercao = (error, results) =>
+    {
+        if (error)
+        {
+            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
+            console.log('Erro no cadastro de período: ', error);
+        } else
+            response.send({status: 'success', title: 'Sucesso!', msg: 'Período cadastrado com sucesso!'});
+    };
+    
+    const dadosForm = request.body;
+    const connection = application.config.dbConnection;
+    const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
+    
+    PeriodosDAO.busca(dadosForm.nome, callbackVerificacao);
+};
+/*              ATUALIZAÇÃO DE PERIODOS                                */
+module.exports.atualizar = (application, request, response) =>
+{
+    const dadosForm = request.body;
+    const connection = application.config.dbConnection;
+    const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
+
+    const callback = (error, results) =>
+    {
+        if (error)
+        {
+            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
+            console.log('Erro ao atualizar período: ', error);
+        } else
+            response.send({status: 'success', title: 'Sucesso!', msg: 'Período ' + dadosForm.nome + ' atualizado com sucesso!'});
+    };
+    PeriodosDAO.atualizar(dadosForm.id, dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, dadosForm.ativo, callback);
+};

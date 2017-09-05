@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/metro.css" rel="stylesheet">
+        <link href="css/metro-colors.css" rel="stylesheet">
+        <link href="css/metro-responsive.css" rel="stylesheet">
+        <link href="css/metro-rtl.css" rel="stylesheet">
+        <link href="css/metro-schemes.css" rel="stylesheet">
+        <link href="css/estilo.css" rel="stylesheet">
+        <meta name="description" content="Sistema de Reservas de Equipamentos, salas e laboratórios para a UNEMAT-BBG">
+        <meta name="author" content="Cosme da Silva Lorim (estagiário do SPD da UNEMAT de Barra do Bugres)">
+        <title>Reservas UNEMAT-BBG</title>
+    </head>
+    <body>
+
+        <div class="app-bar">
+            <a class="app-bar-element branding">Reservas UNEMAT</a>
+            <ul class="app-bar-menu">
+                <li><a href="/cadastrar-usuario">Usuários</a></li>
+                <li><a href="/cadastrar-equipamento">Equipamentos</a></li>
+                <li><a href="/cadastrar-sala-ou-laboratorio">Sala e Laboratórios</a></li>
+            </ul>
+            <form class="place-right" action="/autenticar" method="post">
+                <input type="text" name="usuario" id="usuario" placeholder="Usuário" class="input-control text">
+                <input type="password" name="senha" id="senha" placeholder="Senha" class="input-control password">
+                <button type="submit" class="button info block-shadow-info text-shadow">Entrar</button>
+            </form>
+        </div>
+    <center><h1>Reservas UNEMAT-BBG</h1></center>
+
+    <center>
+        <p style="padding: 10px"></p>
+        <a href="/nova-reserva"><button class="button success block-shadow-info text-shadow">Fazer reserva de sala ou laboratório</button></a>
+    </center>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/metro.js"></script>
+    <!--<center><p class="copyright" style="vertical-align: bottom">
+      &copy; Desenvolvido por UNEMAT - Unemat-BBG Campus Universitário Renê Barbour<br>
+      Endereço: R. A, s/n - COHAB São Raimundo, Barra do Bugres - MT, 78390-000
+    </p></center>-->
+</body>
+</html>
