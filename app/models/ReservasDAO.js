@@ -6,6 +6,16 @@ class ReservasDAO
         this._tabela = 'reservas';
     }
 
+    busca(dados, callback)
+    {
+        let text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela};`;
+//        console.log(text);
+        this._pool.query(text, callback);
+    }
+
     /*
      * 
      * @param {horarios: [{checked: boolean, campo: char}, datas: [integer]} dados
@@ -57,13 +67,7 @@ class ReservasDAO
         let text = '';
         dados.datas.forEach((item) =>
         {
-            text += `UPDATE
-                        ${this._tabela}
-                    SET
-                        ativo = 'FALSE'
-                    WHERE
-                        ativo = TRUE;
-                    INSERT INTO
+            text += `INSERT INTO
                         ${this._tabela}
                         (
                             mat_aula_1,
@@ -74,7 +78,7 @@ class ReservasDAO
                             vesp_aula_2,
                             vesp_aula_3,
                             vesp_aula_4,
-                            not_aula_1,
+                            not_aula_1, 
                             not_aula_2,
                             not_aula_3,
                             not_aula_4,
@@ -104,7 +108,7 @@ class ReservasDAO
                             ${item},
                             ${dados.objeto},
                             ${dados.oferecimento},
-                            1
+                            ${dados.operacao}
                       );\n`;
         });
 //        console.log(text);
