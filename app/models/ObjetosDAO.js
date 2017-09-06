@@ -21,7 +21,19 @@ ObjetosDAO = function (connection)
     /*    FUNÇÃO PARA RECUPERAR UM OBJETO DO BANCO               */
     this.buscar = (txBusca, callback) =>
     {
-        let text = `SELECT * FROM ${this._tabela} WHERE descricao ILIKE \'${txBusca}\' LIMIT 1;`;
+        const text = `SELECT * FROM ${this._tabela} WHERE descricao ILIKE \'${txBusca}\' LIMIT 1;`;
+        this._pool.query(text, callback);
+    };
+    
+    this.listarObjetosEmOrdemAlfabetica = (callback)=>
+    {
+        const text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela}
+                    ORDER BY
+                        descricao;`;
+        
         this._pool.query(text, callback);
     };
 
