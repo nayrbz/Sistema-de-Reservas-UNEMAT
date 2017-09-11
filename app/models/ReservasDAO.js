@@ -6,12 +6,23 @@ class ReservasDAO
         this._tabela = 'reservas';
     }
 
-    busca(dados, callback)
+    buscaReservasDoDia(dados, callback)
     {
-        let text = `SELECT
+        let text = '';
+        dados.objetos.forEach((item) =>
+        {
+            text += `SELECT
                         *
                     FROM
-                        ${this._tabela};`;
+                        ${this._tabela}
+                    WHERE
+                        data = ${dados.data}
+                    AND
+                        objeto = ${item.id}\nUNION\n`;
+        });
+        
+        text = text.substr(0, text.length - 7) + ';';
+        
 //        console.log(text);
         this._pool.query(text, callback);
     }
@@ -38,14 +49,14 @@ class ReservasDAO
                 if (item.checked === 'true')
                     text += item.campo + ' = ' + item.checked + ' OR \n';
             });
-            text = text.substr(0, text. length -4) + '\n';
+            text = text.substr(0, text.length - 4) + '\n';
             text += `)
                     AND
                         data = ${item}
                     AND
                         objeto = ${dados.objeto}\nUNION\n`;
         });
-        text = text.substr(0, text.length -7) + ';';
+        text = text.substr(0, text.length - 7) + ';';
 //        console.log(text);
         this._pool.query(text, callback);
     }

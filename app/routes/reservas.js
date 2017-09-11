@@ -1,6 +1,6 @@
 module.exports = (application) =>
 {
-    /*                API DE PERÍODOS                                */
+    /*                API DE RESERVAS                                */
     application.get('/reservas', (request, response) =>
     {
         application.app.controllers.reservas.recuperarObjetos(application, request, response);
