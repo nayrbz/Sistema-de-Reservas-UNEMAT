@@ -25,12 +25,14 @@ ObjetosDAO = function (connection)
         this._pool.query(text, callback);
     };
     
-    this.listarObjetosEmOrdemAlfabetica = (callback)=>
+    this.listarObjetosAtivosEmOrdemAlfabetica = (callback)=>
     {
         const text = `SELECT
                         *
                     FROM
                         ${this._tabela}
+                    WHERE
+                        ativo = 'true'
                     ORDER BY
                         descricao;`;
         
