@@ -176,7 +176,9 @@ class DisciplinasDAO
                         ${this._tabela}
                     SET
                         descricao = \'${descricao}\', sigla = \'${sigla}\', ativo = ${ativo}, curso = ${curso},
-                        carga_horaria = ${carga_horaria}, semestre = ${semestre} WHERE ID = ${id};`;
+                        carga_horaria = ${carga_horaria}, semestre = ${semestre}
+                    WHERE
+                        id = ${id};`;
         this._pool.query(text, callback);
     }
 }
