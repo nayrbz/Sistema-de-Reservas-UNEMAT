@@ -8,20 +8,10 @@ class ReservasDAO
 
     buscaReservasDoDia(dados, callback)
     {
-        let text = '';
-        dados.objetos.forEach((item) =>
-        {
-            text += `SELECT
+        const text = `SELECT
                         *
                     FROM
-                        ${this._tabela}
-                    WHERE
-                        data = ${dados.data}
-                    AND
-                        objeto = ${item.id}\nUNION\n`;
-        });
-        
-        text = text.substr(0, text.length - 7) + ';';
+                        obter_reservas(${dados.data});`;
         
 //        console.log(text);
         this._pool.query(text, callback);
