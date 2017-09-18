@@ -118,9 +118,9 @@ var Disciplina = function ()
         }
         return true;
     };
-    this.validaSigla = function (descricao)
+    this.validaSigla = function (sigla)
     {
-        if (descricao.length === 0)
+        if (sigla.length === 0)
         {
             $.Notify({
                 caption: 'Erro',
@@ -130,7 +130,7 @@ var Disciplina = function ()
             });
             return false;
         }
-        if (descricao.length > 120)
+        if (sigla.length > 10)
         {
             $.Notify({
                 caption: 'Erro',
