@@ -101,7 +101,7 @@ class DisciplinasDAO
                         id = ${id}
                     LIMIT
                         1;`;
-        console.log(text);
+//        console.log(text);
         this._pool.query(text, callback);
     }
 

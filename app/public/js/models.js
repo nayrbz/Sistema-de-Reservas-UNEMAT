@@ -87,7 +87,7 @@ var Curso = function ()
 var Disciplina = function ()
 {
     this.id = null; //integer
-    this.descricao = ''; //char[60]
+    this.descricao = ''; //char[100]
     this.sigla = ''; //char[10]
     this.curso = null; //integer
     this.ativo = null; //boolean
@@ -106,11 +106,11 @@ var Disciplina = function ()
             });
             return false;
         }
-        if (descricao.length > 120)
+        if (descricao.length > 100)
         {
             $.Notify({
                 caption: 'Erro',
-                content: 'O campo nome do curso não deve ultrapassar 60 caracteres!',
+                content: 'O campo nome do curso não deve ultrapassar 100 caracteres!',
                 timeout: 10000,
                 type: 'alert'
             });
