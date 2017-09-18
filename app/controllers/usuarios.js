@@ -121,14 +121,18 @@ module.exports.inserir = (application, request, response) =>
             let tiposObjetos = [];
             const usuario = results.rows[0].id;
 
-            dados.perfil.forEach((perfil) =>
+            if (dados.perfil !== undefined)
             {
-                if (perfil.ativo === 'true')
-                    tiposObjetos.push(perfil.tipo_objeto);
-            });
+                dados.perfil.forEach((perfil) =>
+                {
+                    if (perfil.ativo === 'true')
+                        tiposObjetos.push(perfil.tipo_objeto);
+                });
 
-            const PerfisDAO = new application.app.models.PerfisDAO(connection);
-            PerfisDAO.inserir(tiposObjetos, usuario, callbackCriaPerfil);
+                const PerfisDAO = new application.app.models.PerfisDAO(connection);
+                PerfisDAO.inserir(tiposObjetos, usuario, callbackCriaPerfil);
+            } else
+                response.send({status: 'success', title: 'Sucesso!', msg: 'Usuário cadastrado com sucesso!'});
         }
     };
     const callbackCriaPerfil = (error, results) =>
