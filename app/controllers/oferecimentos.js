@@ -41,6 +41,12 @@ module.exports.recuperarObjetos = (application, request, response) =>
 //  =====   ADMINISTRAÇÃO   =====
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     const callbackPeriodos = (error, results) =>
     {
         if (error)
@@ -75,6 +81,12 @@ module.exports.administrar = (application, request, response) =>
 //  =====   CADASTRO   =====
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const callbackVerificacaoPeriodoEUsuario = (error, results) =>
     {
         if (error)
@@ -140,6 +152,12 @@ module.exports.inserir = (application, request, response) =>
 //  =====   CANCELAMENTO   =====
 module.exports.desativar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const OferecimentosDAO = new application.app.models.OferecimentosDAO(connection);

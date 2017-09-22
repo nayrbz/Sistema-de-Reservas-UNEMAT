@@ -1,9 +1,14 @@
 module.exports.admin = (application, request, response) =>
 {
-    let dados =
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
     {
-        usuario: 'Nome Usuário',
-        tipoUsuario: 'administrador'
-    };
-    response.render('admin', {dados: dados});
+        response.redirect('/');
+        return;
+    }
+    if (request.session.admin)
+    {
+        response.render('admin', {usuario: request.session.nome});
+    } else {
+        response.send('You are not administrator!');
+    }
 };

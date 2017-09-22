@@ -2,9 +2,14 @@ UsuariosDAO = function (connection)
 {
     this._pool = connection;
     this._tabela = 'usuarios';
-    /*      FUNÇÃO PARA RECUPERAR UM INTERVALO DE OBJETOS NO BANCO              */
-    /*                 ['DESCRIAO', 'LIMIT', 'OFFSET']                          */
-    this.buscaIntervalo = (adcionais, callback) =>
+    
+    /*
+     * Faz busca de um intervalo de usuários e retorna a row deles no banco
+     * @param {txConsulta: char[], limit: integer, offset: integer} dados
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    this.buscaIntervalo = (dados, callback) =>
     {
         const text =
                 `SELECT 
@@ -12,39 +17,59 @@ UsuariosDAO = function (connection)
                 FROM
                         ${this._tabela} u
                 WHERE
-                        nome ILIKE \'${adcionais.txConsulta}\'
+                        nome ILIKE \'${dados.txConsulta}\'
                 ORDER BY
                         nome
                 LIMIT
-                        ${adcionais.limit}
+                        ${dados.limit}
                 OFFSET
-                        ${adcionais.offset};`;
+                        ${dados.offset};`;
 
         this._pool.query(text, callback);
     };
-    /*    FUNÇÃO PARA RECUPERAR UM OBJETO DO BANCO               */
-    this.buscarPorUsr = (txBusca, callback) =>
+    /*
+     * Faz busca de usuário por 'usr' e retorna um a row dele no banco
+     * @param {integer} id
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    this.buscarPorUsr = (usr, callback) =>
     {
-        const text = `SELECT * FROM ${this._tabela} WHERE usr ILIKE \'${txBusca}\' LIMIT 1;`;
+        const text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        usr ILIKE \'${usr}\'
+                    LIMIT
+                        1;`;
         this._pool.query(text, callback);
     };
+    
     /*
-     * 
+     * Faz busca de usuário por ID e retorna um a row dele no banco
      * @param {integer} id
      * @param {function} callback
      * @returns {undefined}
      */
     this.buscarPorId = (id, callback) =>
     {
-        const text = `SELECT * FROM ${this._tabela} WHERE usr ILIKE \'${id}\' LIMIT 1;`;
+        const text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        usr ILIKE \'${id}\'
+                    LIMIT
+                        1;`;
         this._pool.query(text, callback);
     };
-    /*         FUNÇÃO PARA INSERIR UM NOVO OBJETO NO BANCO                      */
-    /*  A FUNÇÃO ESPERA UM ARRAY COM TRÊS VALORES: DESCRICAO COM 30 CARACTERES  */
-    /*       NO MÁXIMO, UM BOOLEAN PARA ATIVO E A REFERENCIA                    */
-    /*                   PARA O TIPO DO OBJETO                                  */
-    /*          ['DESCRICAO', 'ATIVO', 'TIPO_OBJETO']                           */
 
+    /*
+     * Faz busca de todos os usuários ativos no banco e retorna um a row dele no banco 
+     * @param {function} callback
+     * @returns {undefined}
+     */
     this.buscaTodosAtivo = (callback) =>
     {
         const text =
@@ -59,6 +84,12 @@ UsuariosDAO = function (connection)
 
         this._pool.query(text, callback);
     };
+    
+    /*         FUNÇÃO PARA INSERIR UM NOVO OBJETO NO BANCO                      */
+    /*  A FUNÇÃO ESPERA UM ARRAY COM TRÊS VALORES: DESCRICAO COM 30 CARACTERES  */
+    /*       NO MÁXIMO, UM BOOLEAN PARA ATIVO E A REFERENCIA                    */
+    /*                   PARA O TIPO DO OBJETO                                  */
+    /*          ['DESCRICAO', 'ATIVO', 'TIPO_OBJETO']                           */
     this.inserir = (values, callback) =>
     {
         const text = `INSERT INTO ${this._tabela} (nome, usr, passwd, admin, ativo) VALUES ($1, $2, $3, $4, $5);`;
@@ -66,7 +97,7 @@ UsuariosDAO = function (connection)
     };
 
     /*
-     * Atualiza Usuário com base no ID
+     * Atualiza um usuário com base no ID
      * @param {boolean} admin
      * @param {boolean} ativo
      * @param {integer} id

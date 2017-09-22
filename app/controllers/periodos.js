@@ -31,11 +31,23 @@ module.exports.recuperarObjetos = (application, request, response) =>
 /*              ADMINISTRAÇÃO DOS PERIODOS                                */
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     response.render('admin/periodos');
 };
 /*               CADASTRO DE PERIODOS                                */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const callbackVerificacao = (error, results) =>
     {
         if (error)
@@ -74,6 +86,12 @@ module.exports.inserir = (application, request, response) =>
 /*              ATUALIZAÇÃO DE PERIODOS                                */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const PeriodosDAO = new application.app.models.PeriodosDAO(connection);

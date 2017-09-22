@@ -37,11 +37,23 @@ module.exports.recuperarObjetos = (application, request, response) =>
 /*              ADMINISTRAÇÃO DOS CURSOS                                */
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+
     response.render('admin/cursos');
 };
 /*               CADASTRO DE CURSOS                                */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     let dados = request.body;
     const connection = application.config.dbConnection;
     let CursosDAO = new application.app.models.CursosDAO(connection);
@@ -75,6 +87,12 @@ module.exports.inserir = (application, request, response) =>
 /*              ATUALIZAÇÃO DE CURSOS                                */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dados = request.body;
     const connection = application.config.dbConnection;
     const CursosDAO = new application.app.models.CursosDAO(connection);

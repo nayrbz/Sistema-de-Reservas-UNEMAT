@@ -56,13 +56,22 @@ module.exports.recuperarUm = (application, request, response) =>
 
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     const connection = application.config.dbConnection;
     let TiposObjetosDAO = new application.app.models.TiposObjetosDAO(connection);
 
     let callback = (error, results) =>
     {
         if (error)
+        {
+            console.log('Erro ao abrir tela administrativa.');
             response.send(error);
+        }
         else
         {
             let dados =
@@ -78,6 +87,12 @@ module.exports.administrar = (application, request, response) =>
 /*              CADASTRO DE USUÁRIOS                                */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dados = request.body;
     const callbackVerificacaoUsuario = (error, results) =>
     {
@@ -154,6 +169,12 @@ module.exports.inserir = (application, request, response) =>
 /*              ATUALIZAÇÃO DE USUÁRIOS                              */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dadosForm = request.body;
 
     const callbackAtualizacaoUzuario = (error, results) =>

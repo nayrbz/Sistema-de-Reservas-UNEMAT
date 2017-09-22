@@ -36,6 +36,12 @@ module.exports.recuperarObjetos = (application, request, response) =>
 /*              RECUPERAÇÃO DE OBJETOS                             */
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     const connection = application.config.dbConnection;
     let TiposObjetosDAO = new application.app.models.TiposObjetosDAO(connection);
 
@@ -59,6 +65,12 @@ module.exports.administrar = (application, request, response) =>
 /*              CADASTRO DE OBJETOS                                */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     let dados = request.body;
     const connection = application.config.dbConnection;
     let ObjetosDAO = new application.app.models.ObjetosDAO(connection);
@@ -93,6 +105,12 @@ module.exports.inserir = (application, request, response) =>
 /*              ATUALIZAÇÃO DE OBJETOS                            */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dados = request.body;
     const connection = application.config.dbConnection;
     const ObjetosDAO = new application.app.models.ObjetosDAO(connection);

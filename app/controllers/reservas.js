@@ -29,26 +29,24 @@ module.exports.recuperarObjetos = (application, request, response) =>
 //  =====   ADMINISTRAÇÃO DOS RESERVAS   =====
 module.exports.administrar = (application, request, response) =>
 {
-//    const callbackBuscaPeriodoAtivo = (error, results) =>
-//    {
-//        if (error)
-//        {
-//            response.send(error);
-//        } else
-//        {
-//            response.render('admin/reservas', {periodo: results.rows[0]});
-//        }
-//    };
-
-//    const connection = application.config.dbConnection;
-//    const PeriodosDAO = new application.app.models.PeriodosDAO(connection);
-//    PeriodosDAO.buscaAtivo(callbackBuscaPeriodoAtivo);
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     response.render('admin/reservas');
 };
 
 //  =====   CADASTRO DE RESERVAS   =====
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const callbackVerificacao = (error, results) =>
     {
         if (error)
@@ -110,6 +108,12 @@ module.exports.inserir = (application, request, response) =>
 //  =====   ATUALIZAÇÃO DE RESERVAS   =====
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const ReservasDAO = new application.app.models.ReservasDAO(connection);

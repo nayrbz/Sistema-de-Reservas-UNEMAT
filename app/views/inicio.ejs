@@ -19,20 +19,23 @@
         <title>Reservas UNEMAT-BBG</title>
     </head>
     <body>
-
         <div class="app-bar">
             <a class="app-bar-element branding">Reservas UNEMAT</a>
+            <div class="place-right">
+                <input type="text" name="usr" id="usr" placeholder="Usuário" value="" class="input-control text">
+                <input type="password" name="passwd" id="passwd" placeholder="Senha" value="" class="input-control password">
+                <button id="entrar" class="button info block-shadow-info text-shadow">Entrar</button>
+            </div>
         </div>
-    <center><h1>Reservas UNEMAT-BBG</h1></center>
-    <div class="container">
-        <div class="grid">
+        <p style="padding: 0.3em;"></p>
+        <div class="container">
             <div class="flex-grid">
                 <div class="row">
-                    <div class="cell colspan2">
+                    <div class="cell colspan1">
                         <label class="block" for="datamanutencao">Buscar na data:</label>
                         <input type="text" name="datamanutencao" value="" />
                     </div>
-                    <div class="cell colspan10">
+                    <div class="cell colspan11">
                         <table id="tabelareservas">
                             <thead>
                                 <tr>
@@ -65,93 +68,148 @@
                 </div>
             </div>
         </div>
-    </div>
-    <p class="copyright" style="vertical-align: bottom; text-align: center;">
-        &copy; Desenvolvido por UNEMAT - Unemat-BBG Campus Universitário Renê Barbour<br>
-        Endereço: R. A, s/n - COHAB São Raimundo, Barra do Bugres - MT, 78390-000
-    </p>
-</body>
+        <p class="copyright" style="vertical-align: bottom; text-align: center;">
+            &copy; Desenvolvido por UNEMAT - Unemat-BBG Campus Universitário Renê Barbour<br>
+            Endereço: R. A, s/n - COHAB São Raimundo, Barra do Bugres - MT, 78390-000
+        </p>
+    </body>
 
-<script src="js/jquery-3.2.1.min.js"></script>
-<script src="js/bootstrap-table.min.js"></script>
-<script src="js/metro.js"></script>
-<script src="js/bootstrap-table.min.js"></script>
-<script src="js/moment.min.js"></script>
-<script src="js/daterangepicker.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/metro.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
 
-<script>
-    $('input[name="datamanutencao"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        "timePicker": false,
-        "opens": "rigth",
-        "drops": "down",
-        "locale": {
-            format: 'DD/MM/YYYY',
-            "separator": " | até | ",
-            "applyLabel": "Aplicar",
-            "cancelLabel": "Cancelar",
-            "fromLabel": "de",
-            "toLabel": "para",
-            "customRangeLabel": "Personalizado",
-            "daysOfWeek": [
-                "Dom",
-                "Seg",
-                "Ter",
-                "Qua",
-                "Qui",
-                "Sex",
-                "Sab"
-            ],
-            "monthNames": [
-                "Janeiro",
-                "Fevereiro",
-                "Março",
-                "Abril",
-                "Maio",
-                "junho",
-                "Julho",
-                "Agosto",
-                "Setembro",
-                "Outubro",
-                "Novembro",
-                "Dezembro"
-            ],
-            "firstDay": 1
-        }
-    },
-            function (start, end, label) {
-                var data = parseInt(moment(start).format('X'));
-                $("#tabelareservas").bootstrapTable('refresh', {
-                    url: "/reservas?data=" + data
+    <script>
+        $('#entrar').click(function ()
+        {
+            var usr = $('#usr').val();
+            var passwd = $('#passwd').val();
+
+            if (usr.length === 0)
+            {
+                $.Notify({
+                    caption: 'Erro no login',
+                    content: 'Você não digitou o usuário.',
+                    timeout: 5000,
+                    type: 'alert'
                 });
+                return;
             }
-    );
 
-    $('#tabelareservas').bootstrapTable({
-        url: "/reservas",
-        pageSize: 20,
-        pagination: false,
-        pagelist: [10, 100, 250],
-        sidePagination: 'server',
-        onClickRow: function(row)
+            if (passwd.length === 0)
+            {
+                $.Notify({
+                    caption: 'Erro na senha',
+                    content: 'Você não digitou a senha.',
+                    timeout: 5000,
+                    type: 'alert'
+                });
+                return;
+            }
+
+            if (passwd.length < 6)
+            {
+                $.Notify({
+                    caption: 'Erro na senha',
+                    content: 'Senha deve possuir ao menos 6 digitos.',
+                    timeout: 10000,
+                    type: 'alert'
+                });
+                return;
+            }
+
+            $.post('autenticar',
+                    {
+                        usr: usr,
+                        passwd: passwd
+                    }
+            , function (data, status)
+            {
+                $.Notify({
+                    caption: data.title,
+                    content: data.msg,
+                    timeout: 10000,
+                    type: data.status
+                });
+                if (data.status === 'success')
+                    window.location.href = '/admin';
+            });
+        });
+
+        $('input[name="datamanutencao"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            "timePicker": false,
+            "opens": "rigth",
+            "drops": "down",
+            "locale": {
+                format: 'DD/MM/YYYY',
+                "separator": " | até | ",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Cancelar",
+                "fromLabel": "de",
+                "toLabel": "para",
+                "customRangeLabel": "Personalizado",
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"
+                ],
+                "firstDay": 1
+            }
+        },
+                function (start, end, label) {
+                    var data = parseInt(moment(start).format('X'));
+                    $("#tabelareservas").bootstrapTable('refresh', {
+                        url: "/reservas?data=" + data
+                    });
+                }
+        );
+
+        $('#tabelareservas').bootstrapTable({
+            url: "/reservas",
+            pageSize: 20,
+            pagination: false,
+            pagelist: [10, 100, 250],
+            sidePagination: 'server',
+            onClickRow: function (row)
+            {
+                console.log(row);
+            }
+        });
+
+        function formatadorCelula(val)
         {
-            console.log(row);
+            if (val)
+            {
+                return '<span class="mif-cross fg-red"></span>';
+            }
+            return '<span class="mif-checkmark fg-blue"></span>';
         }
-    });
 
-    function formatadorCelula(val)
-    {
-        if (val)
-        {
-            return '<span class="mif-cross fg-red"></span>';
+        function utxToData(val) {
+            var d = moment.unix(val);
+            return moment(d).format('DD/MM/YYYY');
         }
-        return '<span class="mif-checkmark fg-blue"></span>';
-    }
-
-    function utxToData(val) {
-        var d = moment.unix(val);
-        return moment(d).format('DD/MM/YYYY');
-    }
-</script>
+    </script>
 </html>

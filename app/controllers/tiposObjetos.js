@@ -37,11 +37,24 @@ module.exports.recuperarObjetos = (application, request, response) =>
 /*              ADMINISTRAÇÃO DOS CATEGORIAS                                */
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     response.render('admin/tiposobjetos');
 };
+
 /*               CADASTRO DE TIPOS DE OBJETOS                                */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     let dados = request.body;
     const connection = application.config.dbConnection;
     let TiposObjetosDAO = new application.app.models.TiposObjetosDAO(connection);
@@ -72,9 +85,16 @@ module.exports.inserir = (application, request, response) =>
     };
     TiposObjetosDAO.busca(dados.descricao, callbackVerificacao);
 };
+
 /*              ATUALIZAÇÃO DE TIPOS DE OBJETOS                                */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     let dados = request.body;
     const connection = application.config.dbConnection;
     let TiposObjetosDAO = new application.app.models.TiposObjetosDAO(connection);

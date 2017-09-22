@@ -106,6 +106,12 @@ module.exports.recuperarTodasAtivasNaoOferecidas = (application, request, respon
 
 module.exports.administrar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
+        return;
+    }
+    
     const connection = application.config.dbConnection;
     const CursosDAO = new application.app.models.CursosDAO(connection);
 
@@ -128,6 +134,12 @@ module.exports.administrar = (application, request, response) =>
 /*              CADASTRO DE DISCPLINAS                              */
 module.exports.inserir = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const dadosForm = request.body;
 
     const callbackVerificacao = (error, results) =>
@@ -164,6 +176,12 @@ module.exports.inserir = (application, request, response) =>
 /*              ATUALIZAÇÃO DE DISCPLINAS                            */
 module.exports.atualizar = (application, request, response) =>
 {
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+    
     const callbackVerificacao = (error, results) =>
     {
         if (error)
