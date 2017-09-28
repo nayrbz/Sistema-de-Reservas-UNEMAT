@@ -18,7 +18,7 @@ class ReservasDAO
     }
 
     /*
-     * 
+     * Função que verifica se há reservas em vários dias e horários
      * @param {horarios: [{checked: boolean, campo: char}, datas: [integer]} dados
      * @param {function} callback
      * @returns {undefined}
@@ -47,6 +47,35 @@ class ReservasDAO
                         objeto = ${dados.objeto}\nUNION\n`;
         });
         text = text.substr(0, text.length - 7) + ';';
+//        console.log(text);
+        this._pool.query(text, callback);
+    }
+    
+    buscaPorUsuarioDasReservas(dados, callback)
+    {
+        const text = `SELECT
+                        r.*, u.nome, d.descricao
+                    FROM
+                        reservas r
+                    INNER JOIN
+                        oferecimentos o
+                    ON
+                        r.oferecimento = o.id
+                    LEFT JOIN
+                        disciplinas d
+                    ON
+                        o.disciplina = d.id
+                    INNER JOIN
+                        usuarios u
+                    ON
+                        o.usuario = u.id
+                    WHERE
+                        r.objeto = ${dados.objeto}
+                    AND
+                        r.data = ${dados.data}
+                    AND
+                        r.ativo = true;`;
+        
 //        console.log(text);
         this._pool.query(text, callback);
     }

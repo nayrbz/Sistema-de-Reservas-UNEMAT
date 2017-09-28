@@ -80,6 +80,7 @@
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/daterangepicker.js"></script>
+    <script src="js/models.js"></script>
 
     <script>
         $('#entrar').click(function ()
@@ -195,6 +196,38 @@
             onClickRow: function (row)
             {
                 console.log(row);
+                $.post('reservas/usuarios',
+                        {
+                            data: row.data,
+                            objeto: row.objeto
+                        },
+                        function (data)
+                        {
+                            console.log(data.reservas);
+                            var admin = new Admin();
+                            var titulo = 'Reservas - ' + row.descricao;
+                            
+                            var conteudo = '';
+                            $.each(data.reservas, function (indice, aula)
+                            {
+                                conteudo += '<p>' + aula.item + ': ' + aula.professor + '</p>';
+                            });
+                            
+                            var color = 'success';
+
+                            admin.dialogOk({titulo, conteudo, color});
+
+                            if (data.status === 'alert')
+                            {
+                                $.Notify({
+                                    caption: data.title,
+                                    content: data.msg,
+                                    timeout: 10000,
+                                    type: data.status
+                                });
+                            }
+                        }
+                );
             }
         });
 

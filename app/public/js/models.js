@@ -8,7 +8,6 @@ var Admin = function () {
     this.dialog = function (titulo, conteudo, callback) {
         metroDialog.create({
             title: titulo,
-            color: 'success',
             content: conteudo,
             actions: [
                 {
@@ -22,7 +21,38 @@ var Admin = function () {
                     title: "Não",
                     cls: "js-dialog-close"
                 }
-            ]
+            ],
+            options: {
+                color: 'success'
+            }
+        });
+    };
+
+    /*
+     * 
+     * @param {title: string, content: string, color: string} options
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    this.dialogOk = function (options, callback) {
+        metroDialog.create({
+            title: options.titulo,
+            content: options.conteudo,
+            actions: [
+                {
+                    title: "Ok",
+                    onclick: function (el) {
+                        if(callback !== undefined)
+                            callback();
+                        $(el).data('dialog').close();
+                    },
+                    overlayClickClose: true,
+                    overlay: true
+                }
+            ],
+            options: {
+                color: options.color
+            }
         });
     };
 };

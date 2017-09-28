@@ -9,6 +9,10 @@ module.exports = (application) =>
     {
         application.app.controllers.reservas.administrar(application, request, response);
     });
+    application.post('/reservas/usuarios', (request, response) =>
+    {
+        application.app.controllers.reservas.recuperarUsuariosDaReserva(application, request, response);
+    });
     application.post('/cadastrar-reserva', (request, response) =>
     {
         application.app.controllers.reservas.inserir(application, request, response);
