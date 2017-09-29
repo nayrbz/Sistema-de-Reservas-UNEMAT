@@ -461,9 +461,8 @@
 
     $('#btnConsultaOferecimento').on('click', function ()
     {
-        console.log($('#txconsultaoferecimentos').val());
         $("#gridOferecimentos").bootstrapTable('refresh', {
-            url: "/oferecimentos?usuario=" + $('#txconsultaoferecimentos').val()
+            url: "/oferecimentos?disciplina=" + $('#txconsultaoferecimentos').val()
         });
     });
 

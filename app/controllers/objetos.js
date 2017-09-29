@@ -5,8 +5,8 @@ module.exports.recuperarObjetos = (application, request, response) =>
 
     const adcionais =
             {
-                limit: request.query.limit,
-                offset: request.query.offset,
+                limit: request.query.limit === undefined ? 10 : request.query.limit,
+                offset: request.query.offset === undefined ? 0 : request.query.offset,
                 txconsulta: '%' + txconsulta + '%'
             };
 
