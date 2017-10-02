@@ -290,11 +290,6 @@
 
     function atualizaSumarioDatas()
     {
-        //        var datas = $('#reservadatas').calendar('getDates').toString();
-        //        $('#diasselecionados').html(datas);
-
-        console.log($("").val());
-
         var datas = $('#reservadatas').calendar('getDates');
         $('#diasselecionados').html('');
         for (var i = 0; i < datas.length; i++) {
@@ -426,7 +421,6 @@
         pagelist: [10, 100, 250],
         sidePagination: 'server',
         onClickRow: function (row) {
-            console.log(row);
             var titulo = "Atualização de reservas";
             var conteudo = "Deseja atualizar os seguintes dados \'"
                     + cursoAntigo.descricao + "\' para \'" + cursoNovo.descricao
