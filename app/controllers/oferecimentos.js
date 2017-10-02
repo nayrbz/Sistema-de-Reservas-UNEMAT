@@ -142,7 +142,7 @@ module.exports.inserir = (application, request, response) =>
     
     if (dadosForm.disciplina === '')
     {
-        console.log(dadosForm.disciplina === '');
+//        console.log(dadosForm.disciplina === '');
         OferecimentosDAO.buscaPorPeriodoEUsuario(dadosForm.periodo, dadosForm.usuario, callbackVerificacaoPeriodoEUsuario);
     }
     else

@@ -17,24 +17,24 @@ module.exports.autenticar = (application, request, response) =>
         {
             if (results.rows.length === 0)
             {
-                console.log('usuário ' + dadosForm.usr + ' não encontrado');
+//                console.log('usuário ' + dadosForm.usr + ' não encontrado');
                 response.send({status: 'alert', title: 'Erro!', msg: 'Usuário não encontrado.'});
                 return;
             }
             if (results.rows[0].ativo === 'false')
             {
-                console.log('usuário ' + dadosForm.usr + ' inativo');
+//                console.log('usuário ' + dadosForm.usr + ' inativo');
                 response.send({status: 'alert', title: 'Erro!', msg: 'Usuário inativo.'});
                 return;
             }
             if (results.rows[0].passwd !== md5(dadosForm.passwd))
             {
-                console.log('senha incorreta');
+//                console.log('senha incorreta');
                 response.send({status: 'alert', title: 'Erro!', msg: 'Senha incorreta.'});
                 return;
             } else
             {
-                console.log('acesso permitido para ' + dadosForm.usr + ', redirecionando para área administrativa.');
+//                console.log('acesso permitido para ' + dadosForm.usr + ', redirecionando para área administrativa.');
                 request.session.autorizado = true;
                 request.session.usr = dadosForm.usr;
                 request.session.nome = results.rows[0].nome;
