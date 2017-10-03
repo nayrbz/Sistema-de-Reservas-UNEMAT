@@ -22,7 +22,7 @@ application.use(expressSession(
             secret: '24234t24tgwergGGSDFGQG23dasd',
             resave: false,
             saveUninitialized: false,
-            cookie: {maxAge: 1000 * 60 * 60} //1 segundo(1000 milessegundos) * 60 (um minuto) * 60 (uma hora)
+            cookie: {maxAge: 1000 * 60 * 60 * 5} //1 segundo(1000 milessegundos) * 60 (um minuto) * 60 (uma hora) * 5
         }
 ));
 
