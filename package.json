@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CosmeLorim/CosmeLorim-Sistema-de-Reservas---UNEMAT"
+    "url": "https://github.com/CosmeLorim/Sistema-de-Reservas-UNEMAT"
   },
   "keywords": [
     "reservas",
@@ -18,11 +18,11 @@
     "nodejs"
   ],
   "author": "Cosme da Silva Lorim",
-  "license": "MIT",
+  "license": "Apache 2",
   "bugs": {
-    "url": "https://github.com/CosmeLorim/reservasequiplabunemat/issues"
+    "url": "https://github.com/CosmeLorim/Sistema-de-Reservas-UNEMATissues"
   },
-  "homepage": "https://github.com/CosmeLorim/reservasequiplabunemat#readme",
+  "homepage": "https://github.com/CosmeLorim/Sistema-de-Reservas-UNEMAT#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
     "consign": "^0.1.6",
