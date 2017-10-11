@@ -171,7 +171,7 @@
                                         </div>
                                     </div>
                                     <div class="cell colspan4">
-                                        <div data-role="calendar" id="reservadatas" data-day-click="atualizaSumarioDatas()" data-multi-select="true"></div>
+                                        <div data-role="calendar" id="reservadatas" data-day-click="atualizaSumarioDatas()" data-multi-select="true" data-locale="pt"></div>
                                         <label class="block">Descrição da operação:</label>
                                         <div class="input-control text" style="width: 100%;">
                                             <textarea
@@ -315,10 +315,14 @@
         if (!reservaNova.validaHorarios(reservaNova.horarios))
             return;
 
-        reservaNova.datas = $('#reservadatas').calendar('getDates');
-        for (var i = 0; i < reservaNova.datas.length; i++) {
-            reservaNova.datas[i] = parseInt(moment(reservaNova.datas[i]).format('X'));
-        }
+        var datas = $('#reservadatas').calendar('getDates');
+        $.each(datas, function (indice, data)
+        {
+            dia = data.slice(8, 10);
+            mes = data.slice(5, 7);
+            ano = data.slice(0, 4);
+            reservaNova.datas.push({dia: dia, mes: mes, ano: ano});
+        });
         if (!reservaNova.validaDatas(reservaNova.datas))
             return;
 

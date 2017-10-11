@@ -1,8 +1,13 @@
 //  =====   RECUPERAÇÃO DE RESERVAS DE UM DETERMINADO DIA (DIA ATUAL QUANDO NÃO ESPECIFICADO UM DIA)   =====
 module.exports.recuperarObjetos = (application, request, response) =>
 {
-    const hoje = new Date();
-    const data = request.query.data === undefined ? new Date(hoje.getFullYear() + '.' + (hoje.getMonth() + 1) + '.' + hoje.getDate()).getTime() / 1000 : request.query.data;
+    let data;
+    if (request.query.dia === undefined)
+    {
+        const hoje = new Date();
+        data = new Date(hoje.getFullYear() + '.' + (hoje.getMonth() + 1) + '.' + hoje.getDate()).getTime() / 1000;
+    } else
+        data = new Date(request.query.ano + '.' + request.query.mes + '.' + request.query.dia).getTime() / 1000;
 
     const callbackBuscaReservas = (error, results) =>
     {
@@ -88,11 +93,11 @@ module.exports.recuperarUsuariosDaReserva = (application, request, response) =>
                 if (row.not_aula_4)
                     reserva[13].professor = row.nome;
             });
-            
+
             reserva.forEach((aula) =>
             {
-               if(aula.professor === '')
-                   aula.professor = 'Livre';
+                if (aula.professor === '')
+                    aula.professor = 'Livre';
             });
 
             response.send({reservas: reserva});
@@ -157,7 +162,7 @@ module.exports.inserir = (application, request, response) =>
                         oferecimento: dadosForm.oferecimento,
                         objeto: dadosForm.objeto,
                         horarios: dadosForm.horarios,
-                        datas: dadosForm.datas,
+                        datas: datasTimesTamp,
                         operacao: results.rows[0].id
                     },
                     callbackCadastroReserva);
@@ -179,8 +184,13 @@ module.exports.inserir = (application, request, response) =>
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const ReservasDAO = new application.app.models.ReservasDAO(connection);
-//    console.log(dadosForm);
-    ReservasDAO.buscaPorHorariosEDatas({horarios: dadosForm.horarios, datas: dadosForm.datas, objeto: dadosForm.objeto}, callbackVerificacao);
+    let datasTimesTamp = [];
+
+    dadosForm.datas.forEach((data) =>
+    {
+        datasTimesTamp.push(data = new Date(data.ano + '.' + data.mes + '.' + data.dia).getTime() / 1000);
+    });
+    ReservasDAO.buscaPorHorariosEDatas({horarios: dadosForm.horarios, datas: datasTimesTamp, objeto: dadosForm.objeto}, callbackVerificacao);
 };
 
 //  =====   ATUALIZAÇÃO DE RESERVAS   =====
