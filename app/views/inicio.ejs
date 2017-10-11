@@ -147,9 +147,7 @@
             "drops": "down",
             "locale": {
                 format: 'DD/MM/YYYY',
-                "separator": " | até | ",
                 "applyLabel": "Aplicar",
-                "cancelLabel": "Cancelar",
                 "fromLabel": "de",
                 "toLabel": "para",
                 "customRangeLabel": "Personalizado",
@@ -181,6 +179,7 @@
         },
                 function (start, end, label) {
                     var data = parseInt(moment(start).format('X'));
+                    console.log(start._i);
                     $("#tabelareservas").bootstrapTable('refresh', {
                         url: "/reservas?data=" + data
                     });
@@ -195,7 +194,6 @@
             sidePagination: 'server',
             onClickRow: function (row)
             {
-                console.log(row);
                 $.post('reservas/usuarios',
                         {
                             data: row.data,
