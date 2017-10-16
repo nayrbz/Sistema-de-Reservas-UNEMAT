@@ -86,27 +86,8 @@ module.exports.inserir = (application, request, response) =>
         application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
         return;
     }
-    
-    const callbackVerificacaoPeriodoEUsuario = (error, results) =>
-    {
-        if (error)
-        {
-            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
-            console.log('Erro na verificação de oferecimentos por período e usuário: ', error);
-        } else
-        {
-            if (results.rowCount === 0)
-            {
-                OferecimentosDAO.inserirSemDisciplina(dadosForm.periodo, dadosForm.usuario, callbackInsercao);
-            } else
-            if (!results.rows[0].ativo)
-                OferecimentosDAO.reativativar(results.rows[0].id, dadosForm.disciplina, callbackInsercao);
-            else
-                response.send({status: 'alert', title: 'Erro!', msg: 'Oferecimento já existe no banco.'});
-        }
-    };
 
-    const callbackVerificacaoPeriodoEDisciplina = (error, results) =>
+    const callbackVerificacao = (error, results) =>
     {
         if (error)
         {
@@ -119,7 +100,7 @@ module.exports.inserir = (application, request, response) =>
                 OferecimentosDAO.inserirComDisciplina(dadosForm.disciplina, dadosForm.periodo, dadosForm.usuario, callbackInsercao);
             } else
             if (!results.rows[0].ativo)
-                OferecimentosDAO.reativativar(results.rows[0].id, dadosForm.disciplina, callbackInsercao);
+                OferecimentosDAO.reativativar(results.rows[0].id, callbackInsercao);
             else
                 response.send({status: 'alert', title: 'Erro!', msg: 'Oferecimento já existe no banco.'});
         }
@@ -139,14 +120,7 @@ module.exports.inserir = (application, request, response) =>
     const connection = application.config.dbConnection;
     const OferecimentosDAO = new application.app.models.OferecimentosDAO(connection);
     
-    
-    if (dadosForm.disciplina === '')
-    {
-//        console.log(dadosForm.disciplina === '');
-        OferecimentosDAO.buscaPorPeriodoEUsuario(dadosForm.periodo, dadosForm.usuario, callbackVerificacaoPeriodoEUsuario);
-    }
-    else
-        OferecimentosDAO.buscaPorPeriodoEDisciplina(dadosForm.periodo, dadosForm.disciplina, callbackVerificacaoPeriodoEDisciplina);
+    OferecimentosDAO.busca(dadosForm.periodo, dadosForm.usuario, dadosForm.disciplina, callbackVerificacao);
 };
 
 //  =====   CANCELAMENTO   =====

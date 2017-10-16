@@ -129,6 +129,31 @@ class OferecimentosDAO
         this._pool.query(text, callback);
     }
     
+    /*
+     * função para recuperar um oferecimento do banco
+     * @param {integer} periodo
+     * @param {integer} usuario
+     * @param {integer} disciplina
+     * @param {function} callback
+     * @returns {undefined}
+     */
+    busca(periodo, usuario, disciplina, callback)
+    {
+        const text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        periodo = ${periodo}
+                    AND
+                        usuario = ${usuario}
+                    AND
+                        disciplina = ${disciplina}
+                    LIMIT
+                        1;`;
+        this._pool.query(text, callback);
+    }
+    
      /*
      * função de consulta de oferecimentos por período e usuário
      * @param {integer} periodo
@@ -179,27 +204,6 @@ class OferecimentosDAO
     buscarTodos(callback)
     {
         const text = `SELECT * FROM ${this._tabela};`;
-        this._pool.query(text, callback);
-    }
-
-    /*
-     * função para recuperar um oferecimento do banco
-     * @param {char} txBusca
-     * @param {function} callback
-     * @returns {undefined}
-     */
-    busca(txBusca, callback)
-    {
-        const text = `SELECT
-                        *
-                    FROM
-                        ${this._tabela}
-                    WHERE
-                        nome
-                    ILIKE
-                        \'${txBusca}\'
-                    LIMIT
-                        1;`;
         this._pool.query(text, callback);
     }
 
@@ -283,16 +287,15 @@ class OferecimentosDAO
     /*
      * função para desativar um oferecimento
      * @param {integer} id
-     * @param {integer} disciplina
      * @param {function} callback
      * @returns {undefined}
      */
-    reativativar(id, disciplina, callback)
+    reativativar(id, callback)
     {
         const text = `UPDATE
                         ${this._tabela}
                     set
-                        ativo = 'TRUE', disciplina = ${disciplina}
+                        ativo = 'TRUE'
                     WHERE
                         id = ${id};`;
 //        console.log(text);

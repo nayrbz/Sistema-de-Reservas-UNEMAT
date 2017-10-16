@@ -6,7 +6,8 @@ connPg = () =>
     {
         user: 'postgres',
 //        database: 'reservas_novo_casa',
-        database: 'reservas_novo',
+//        database: 'reservas_novo',
+        database: 'reservas_copia_servidor',
         password: '1234',
         host: 'localhost',
         port: 5432,
