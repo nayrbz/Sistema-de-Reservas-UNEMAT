@@ -8,7 +8,7 @@ module.exports.recuperarObjetos = (application, request, response) =>
         data = new Date(hoje.getFullYear() + '.' + (hoje.getMonth() + 1) + '.' + hoje.getDate()).getTime() / 1000;
     } else
         data = new Date(request.query.ano + '.' + request.query.mes + '.' + request.query.dia).getTime() / 1000;
-
+    
     const callbackBuscaReservas = (error, results) =>
     {
         if (error)

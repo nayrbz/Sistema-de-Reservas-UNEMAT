@@ -29,12 +29,16 @@
         </div>
         <p style="padding: 0.3em;"></p>
         <div class="container">
-            <div class="flex-grid">
-                <div class="row">
-                    <div class="cell colspan1">
+            <div class="grid row">
+                <div class="row cells12">
+                    <div class="cell colspan3">
                         <div data-role="calendar" id="reservadata" data-day-click="atualizarReservas" data-locale="pt"></div>
+                        <p>Clique para consultar uma data</p>
+                        <p style="font-weight: bold">Legenda:</p>
+                        <p>Livre <span class="mif-checkmark fg-blue"></span></p>
+                        <p>Reservado <span class="mif-cross fg-red"></span></p>
                     </div>
-                    <div class="cell colspan11">
+                    <div class="cell colspan9">
                         <table id="tabelareservas">
                             <thead>
                                 <tr>
