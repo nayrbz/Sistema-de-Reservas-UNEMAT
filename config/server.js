@@ -1,10 +1,12 @@
-var express = require('express'),
+var     express = require('express'),
+        helmet = require('helmet'),
         expressSession = require('express-session'),
         expressValidator = require('express-validator'),
         consign = require('consign'),
         bodyParser = require('body-parser');
 
 var application = express();
+application.use(helmet());
 
 application.set('view engine', 'ejs');  //configura o motor de renderização
 application.set('views', './app/views');//configura o diretório para uso do motor de renderização
