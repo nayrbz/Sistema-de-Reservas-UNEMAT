@@ -51,7 +51,7 @@ class OferecimentosDAO
                         ${dados.limit}
                     OFFSET
                         ${dados.offset};`;
-        console.log(text);
+//        console.log(text);
         this._pool.query(text, callback);
     }
 
