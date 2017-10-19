@@ -46,6 +46,8 @@ class OferecimentosDAO
                             di.descricao ilike \'${dados.txBusca}\'
                         OR
                             us.usr ilike \'${dados.txBusca}\'
+                        OR
+                            us.name ilike \'${dados.txBusca}\'
                         )
                     LIMIT
                         ${dados.limit}
