@@ -8,12 +8,15 @@ class OferecimentosDAO
 
     /*
      * Função para recuperar um intervalo de oferecimentos do banco
-     * @param {integer} limit
-     * @param {integer} offset
+     * @param {
+     *  usuario: integer,
+     *  limit: integer,
+     *  offset: integer
+     * } dados
      * @param {function} callback
      * @returns {undefined}
      */
-    buscaIntervaloAtivo(limit, offset, callback)
+    buscaIntervaloAtivo(dados, callback)
     {
         const text = `SELECT
                         ofer.id, us.nome AS usuarionome, us.usr AS usuariousr, p.nome AS periodonome, COALESCE(di.descricao, 'Não atribuído') AS disciplina,
@@ -37,12 +40,18 @@ class OferecimentosDAO
                     ON
                         us.id = ofer.usuario
                     WHERE
-                        ofer.ativo = TRUE
+                        ofer.ativo = TRUE 
+                    AND
+                        (
+                            di.descricao ilike \'${dados.txBusca}\'
+                        OR
+                            us.usr ilike \'${dados.txBusca}\'
+                        )
                     LIMIT
-                        ${limit}
+                        ${dados.limit}
                     OFFSET
-                        ${offset};`;
-
+                        ${dados.offset};`;
+        console.log(text);
         this._pool.query(text, callback);
     }
 
