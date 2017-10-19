@@ -460,7 +460,7 @@
     $('#btnConsultaOferecimento').on('click', function ()
     {
         $("#gridOferecimentos").bootstrapTable('refresh', {
-            url: "/oferecimentos?disciplina=" + $('#txconsultaoferecimentos').val()
+            url: "/oferecimentos?txBusca=" + $('#txconsultaoferecimentos').val()
         });
     });
 
