@@ -1,8 +1,7 @@
 //  =====   RECUPERAÇÃO DE DADO   =====
 module.exports.recuperarObjetos = (application, request, response) =>
 {
-    const usuario = request.query.usuario === undefined ? '%' : '%' + request.query.usuario + '%';
-    const disciplina = request.query.disciplina === undefined ? '%' : '%' + request.query.disciplina + '%';
+    const txBusca = request.query.txBusca === undefined ? '%' : '%' + request.query.txBusca + '%';
     const limit = request.query.limit;
     const offset = request.query.offset;
 
@@ -25,17 +24,7 @@ module.exports.recuperarObjetos = (application, request, response) =>
     const connection = application.config.dbConnection;
     const OferecimentosDAO = new application.app.models.OferecimentosDAO(connection);
 
-    if (disciplina !== '%')
-    {
-        OferecimentosDAO.buscaIntervaloAtivoPorDisciplina(disciplina, limit, offset, callback);
-        return;
-    }
-    if (usuario !== '%')
-    {
-        OferecimentosDAO.buscaIntervaloAtivoPorUsuario(usuario, limit, offset, callback);
-        return;
-    }
-    OferecimentosDAO.buscaIntervaloAtivo(limit, offset, callback);
+    OferecimentosDAO.buscaIntervaloAtivo({txBusca: txBusca, limit: limit, offset: offset}, callback);
 };
 
 //  =====   ADMINISTRAÇÃO   =====
@@ -46,7 +35,7 @@ module.exports.administrar = (application, request, response) =>
         application.app.controllers.autenticacao.tratativaRotaAdminNaoAutenticado(application, request, response);
         return;
     }
-    
+
     const callbackPeriodos = (error, results) =>
     {
         if (error)
@@ -119,7 +108,7 @@ module.exports.inserir = (application, request, response) =>
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const OferecimentosDAO = new application.app.models.OferecimentosDAO(connection);
-    
+
     OferecimentosDAO.busca(dadosForm.periodo, dadosForm.usuario, dadosForm.disciplina, callbackVerificacao);
 };
 
@@ -131,7 +120,7 @@ module.exports.desativar = (application, request, response) =>
         application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
         return;
     }
-    
+
     const dadosForm = request.body;
     const connection = application.config.dbConnection;
     const OferecimentosDAO = new application.app.models.OferecimentosDAO(connection);
