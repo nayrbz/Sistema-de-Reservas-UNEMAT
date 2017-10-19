@@ -133,22 +133,7 @@
                                     <div class="cells2">
                                         <div class="row">
                                             <div class="cell colspan4">
-                                                <center><h4>Buscar por</h4></center>
-                                                <label class="input-control radio">
-                                                    <input type="radio"
-                                                           name="parametrobusca"
-                                                           value="usuario"
-                                                           checked="">
-                                                    <span class="check"></span>
-                                                    <span class="caption">Usuário</span>
-                                                </label>
-                                                <label class="input-control radio">
-                                                    <input type="radio"
-                                                           name="parametrobusca"
-                                                           value="disciplina">
-                                                    <span class="check"></span>
-                                                    <span class="caption">Disciplina</span>
-                                                </label>
+                                                <center><h4>Buscar por usuário ou disciplina</h4></center>
                                                 <div class="input-control modern text place-right" data-role="input" style="width: 100%;">
                                                     <input id="txconsulta" type="text">
                                                     <span class="label">Localizar</span>
@@ -200,11 +185,10 @@
                         });
                 if (data.status === 'success')
                 {
-                    var parametroBusca = $("input[name=parametrobusca]:checked").val();
                     var txBusca = $('#txconsulta').val();
                     $("#gridConsulta").bootstrapTable('refresh',
                             {
-                                url: "/oferecimentos?" + parametroBusca + "=" + txBusca
+                                url: "/oferecimentos?txBusca=" + txBusca
                             });
 
                     $("#gridDisciplinas").bootstrapTable('refresh',
@@ -245,11 +229,10 @@
                         });
                         if (data.status === 'success')
                         {
-                            var parametroBusca = $("input[name=parametrobusca]:checked").val();
                             var txBusca = $('#txconsulta').val();
                             $("#gridConsulta").bootstrapTable('refresh',
                                     {
-                                        url: "/oferecimentos?" + parametroBusca + "=" + txBusca
+                                        url: "/oferecimentos?txBusca=" + txBusca
                                     });
 
                             $("#gridDisciplinas").bootstrapTable('refresh',
@@ -297,12 +280,11 @@
 
     $('#btnConsultaManutencao').on('click', function ()
     {
-        var parametroBusca = $("input[name=parametrobusca]:checked").val();
         var txBusca = $('#txconsulta').val();
 
         $("#gridConsulta").bootstrapTable('refresh',
                 {
-                    url: "/oferecimentos?" + parametroBusca + "=" + txBusca
+                    url: "/oferecimentos?txBusca=" + txBusca
                 });
     });
 
