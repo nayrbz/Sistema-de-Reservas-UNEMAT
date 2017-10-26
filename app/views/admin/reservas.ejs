@@ -372,32 +372,99 @@
         pagelist: [10, 100, 250],
         sidePagination: 'server',
         onClickRow: function (row) {
-            var titulo = "Atualização de reservas";
-            var conteudo = "Deseja atualizar os seguintes dados \'"
-                    + cursoAntigo.descricao + "\' para \'" + cursoNovo.descricao
-                    + "\' e ativo de \'" + cursoAntigo.ativo + "\' para \'" + cursoNovo.ativo + "\'?";
+            var titulo = 'Cancelamento de reservas';
+            var conteudo = 'Qual reserva deseja cancelar?<br>';
+
+            if (row.mat_aula_1)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_1">Matutino aula 01<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_1" disabled>Matutino aula 01<br>';
+            if (row.mat_aula_2)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_2">Matutino aula 02<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_2" disabled>Matutino aula 02<br>';
+            if (row.mat_aula_3)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_3">Matutino aula 03<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_3" disabled>Matutino aula 03<br>';
+            if (row.mat_aula_4)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_4">Matutino aula 04<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="mat_aula_4" disabled>Matutino aula 04<br>';
+
+            if (row.almoco)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="almoco">Almoço<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="almoco" disabled>Almoço<br>';
+
+            if (row.vesp_aula_1)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_1">Vespertino aula 01<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_1" disabled>Vespertino aula 01<br>';
+            if (row.vesp_aula_2)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_2">Vespertino aula 02<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_2" disabled>Vespertino aula 02<br>';
+            if (row.vesp_aula_3)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_3">Vespertino aula 03<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_3" disabled>Vespertino aula 03<br>';
+            if (row.vesp_aula_4)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_4">Vespertino aula 04<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="vesp_aula_4" disabled>Vespertino aula 04<br>';
+
+            if (row.janta)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="janta">Janta<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="janta" disabled>Janta<br>';
+
+            if (row.not_aula_1)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_1">Noturno aula 01<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_1" disabled>Noturno aula 01<br>';
+            if (row.not_aula_2)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_2">Noturno aula 02<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_2" disabled>Noturno aula 02<br>';
+            if (row.not_aula_3)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_3">Noturno aula 03<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_3" disabled>Noturno aula 03<br>';
+            if (row.not_aula_4)
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_4">Noturno aula 04<br>';
+            else
+                conteudo += '<input type="checkbox" name="horarioCancelamentoReserva" value="not_aula_4" disabled>Noturno aula 04<br>';
+
             var callback = function ()
             {
-                $.post('atualizar-curso',
-                        {
-                            id: cursoAntigo.id,
-                            sigla: cursoNovo.sigla,
-                            descricao: cursoNovo.descricao,
-                            ativo: cursoNovo.ativo
-                        }
-                , function (data, status)
+                var horarioCancelamentoReserva = [];
+                $('input[name="horarioCancelamentoReserva"]').each(function ()
                 {
-                    $.Notify({
-                        caption: data.title,
-                        content: data.msg,
-                        timeout: 10000,
-                        type: data.status
-                    });
-                    if (data.status === 'success')
-                        $("#gridCursos").bootstrapTable('refresh', {
-                            url: "/cursos"
-                        });
+                    if ($(this).is(':checked'))
+                        horarioCancelamentoReserva.push($(this).val());
                 });
+                
+                if (horarioCancelamentoReserva.length !== 0)
+                    $.post('cancelar-reserva',
+                            {
+                                horarioCancelamentoReserva: horarioCancelamentoReserva,
+                                data: row.data,
+                                objeto: row.objeto
+                            }
+                    , function (data, status)
+                    {
+                        $.Notify({
+                            caption: data.title,
+                            content: data.msg,
+                            timeout: 10000,
+                            type: data.status
+                        });
+                        if (data.status === 'success')
+                            $("#tabelamanutencao").bootstrapTable('refresh', {
+                                url: "/reservas"
+                            });
+                    });
             };
 
             admin.dialog(titulo, conteudo, callback);
