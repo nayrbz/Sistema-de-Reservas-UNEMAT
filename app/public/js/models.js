@@ -42,16 +42,17 @@ var Admin = function () {
                 {
                     title: "Ok",
                     onclick: function (el) {
-                        if(callback !== undefined)
+                        if (callback !== undefined)
                             callback();
                         $(el).data('dialog').close();
-                    },
-                    overlayClickClose: true,
-                    overlay: true
+                    }
                 }
             ],
             options: {
-                color: options.color
+                color: options.color,
+                overlayColor: 'op-dark',
+                overlayClickClose: true,
+                overlay: true
             }
         });
     };
