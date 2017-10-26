@@ -402,16 +402,6 @@ var Reserva = function () {
 
     this.validaDescricaoOperacao = function (descricaoOperacao)
     {
-        if (descricaoOperacao.length === 0)
-        {
-            $.Notify({
-                caption: 'Erro',
-                content: 'A descrição da operação não deve estar vazio!',
-                timeout: 10000,
-                type: 'alert'
-            });
-            return false;
-        }
         if (descricaoOperacao.length > 120)
         {
             $.Notify({
