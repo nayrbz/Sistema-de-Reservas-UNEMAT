@@ -12,7 +12,7 @@ class ReservasDAO
                         *
                     FROM
                         obter_reservas(${dados.data});`;
-        
+
 //        console.log(text);
         this._pool.query(text, callback);
     }
@@ -50,7 +50,7 @@ class ReservasDAO
 //        console.log(text);
         this._pool.query(text, callback);
     }
-    
+
     buscaPorUsuarioDasReservas(dados, callback)
     {
         const text = `SELECT
@@ -75,7 +75,7 @@ class ReservasDAO
                         r.data = ${dados.data}
                     AND
                         r.ativo = true;`;
-        
+
 //        console.log(text);
         this._pool.query(text, callback);
     }
@@ -141,6 +141,25 @@ class ReservasDAO
                             ${dados.operacao}
                       );\n`;
         });
+//        console.log(text);
+        this._pool.query(text, callback);
+    }
+
+    cancelar(dados, callback)
+    {
+        let text = `UPDATE ${this._tabela} SET `;
+        
+        dados.horarios.forEach((horario) =>
+        {
+            text += `${horario} = false, `;
+        });
+
+        text = text.substr(0, text.length - 2);
+        text += ` WHERE
+                    objeto = ${dados.objeto}
+                AND
+                    data = ${dados.data};`;
+        
 //        console.log(text);
         this._pool.query(text, callback);
     }
