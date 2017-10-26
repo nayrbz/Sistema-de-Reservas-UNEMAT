@@ -58,6 +58,43 @@ tbody tr:hover td {
     background-color: #60a917 !important;
     cursor: pointer;
 }
+
 tbody tr.selected td {
     background-color: #60a917 !important    ;
+}
+
+.pagination-detail{
+    display: none;
+}
+
+ul.pagination{
+    display: flex;
+}
+
+li.page-pre{
+    list-style-type: none !important;
+}
+
+li.page-first{
+    list-style-type: none !important;
+}
+
+li.page-pre{
+    list-style-type: none !important;
+}
+
+li.page-number{
+    list-style-type: none !important;
+}
+
+li.page-next{
+    list-style-type: none !important;
+}
+
+li.page-last-separator{
+    list-style-type: none !important;
+}
+
+li.page-last{
+    list-style-type: none !important;
 }
