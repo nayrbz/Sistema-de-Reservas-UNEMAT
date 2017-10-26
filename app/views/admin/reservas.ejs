@@ -363,59 +363,6 @@
         admin.dialog(titulo, conteudo, callback);
     });
 
-    $('#atualizarPeriodo').on('click', function () {
-        var periodoNovo = new Periodo();
-
-        if (!periodoNovo.validaNome($('#nome').val()))
-            return;
-        periodoNovo.nome = $('#nome').val();
-
-        var data_inicio = parseInt(moment($("#data").data('daterangepicker').startDate).format('X'));
-        var data_fim = parseInt(moment($("#data").data('daterangepicker').endDate).format('X'));
-
-        if (!periodoNovo.validaDatas(data_inicio, data_fim))
-            return;
-        periodoNovo.data_inicio = data_inicio;
-        periodoNovo.data_fim = data_fim;
-
-        periodoNovo.ativo = $('#ativo').prop('checked');
-
-        var admin = new Admin();
-        var titulo = "Cadastro de período";
-        var conteudo = "Deseja cadastrar o período \'"
-                + periodoNovo.nome + "\' e "
-                + "com ativo \'" + periodoNovo.ativo + '\'?';
-
-        var callback = function ()
-        {
-            $.post('atualizar-periodo',
-                    {
-                        id: periodoAntigo.id,
-                        nome: periodoNovo.nome,
-                        ativo: periodoNovo.ativo,
-                        data_inicio: periodoNovo.data_inicio,
-                        data_fim: periodoNovo.data_fim
-                    },
-                    function (data, status)
-                    {
-                        $.Notify({
-                            caption: data.title,
-                            content: data.msg,
-                            timeout: 10000,
-                            type: data.status
-                        });
-                        if (data.status === 'success')
-                        {
-                            $("#gridPeriodos").bootstrapTable('refresh', {
-                                url: "/periodos"
-                            });
-                            limpaTelaPeriodos();
-                        }
-                    });
-        };
-        admin.dialog(titulo, conteudo, callback);
-    });
-
     admin = new Admin();
 
     $('#tabelamanutencao').bootstrapTable({
