@@ -8,7 +8,7 @@ module.exports.recuperarObjetos = (application, request, response) =>
         data = new Date(hoje.getFullYear() + '.' + (hoje.getMonth() + 1) + '.' + hoje.getDate()).getTime() / 1000;
     } else
         data = new Date(request.query.ano + '.' + request.query.mes + '.' + request.query.dia).getTime() / 1000;
-    
+
     const callbackBuscaReservas = (error, results) =>
     {
         if (error)
@@ -216,4 +216,37 @@ module.exports.atualizar = (application, request, response) =>
             response.send({status: 'success', title: 'Sucesso!', msg: 'Reserva atualizado com sucesso!'});
     };
     ReservasDAO.atualizar(dadosForm.id, dadosForm.nome, dadosForm.data_inicio, dadosForm.data_fim, dadosForm.ativo, callback);
+};
+
+//  =====   CANCELAMENTO DE RESERVAS   =====
+module.exports.cancelar = (application, request, response) =>
+{
+    if (!application.app.controllers.autenticacao.verificarSeAutenticado(application, request, response))
+    {
+        application.app.controllers.autenticacao.tratativaRequisicoesNaoAutenticadas(application, request, response);
+        return;
+    }
+
+    const dadosForm = request.body;
+    const connection = application.config.dbConnection;
+    const ReservasDAO = new application.app.models.ReservasDAO(connection);
+
+    const callback = (error, results) =>
+    {
+        if (error)
+        {
+            response.send({status: 'alert', title: 'Erro!', msg: 'Erro no servidor.'});
+            console.log('Erro ao atualizar reserva: ', error);
+        } else {
+            response.send({status: 'success', title: 'Sucesso!', msg: 'Reserva(s) cancelada(s) com sucesso!'});
+        }
+    };
+
+    ReservasDAO.cancelar(
+            {
+                horarios: dadosForm.horarioCancelamentoReserva,
+                data: dadosForm.data,
+                objeto: dadosForm.objeto
+            },
+            callback);
 };
