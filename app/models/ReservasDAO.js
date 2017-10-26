@@ -158,7 +158,9 @@ class ReservasDAO
         text += ` WHERE
                     objeto = ${dados.objeto}
                 AND
-                    data = ${dados.data};`;
+                    data = ${dados.data}
+                AND
+                    ativo = true;`;
         
 //        console.log(text);
         this._pool.query(text, callback);
