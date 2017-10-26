@@ -21,4 +21,8 @@ module.exports = (application) =>
     {
         application.app.controllers.reservas.atualizar(application, request, response);
     });
+    application.post('/cancelar-reserva', (request, response) =>
+    {
+        application.app.controllers.reservas.cancelar(application, request, response);
+    });
 };
