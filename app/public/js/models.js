@@ -23,7 +23,10 @@ var Admin = function () {
                 }
             ],
             options: {
-                color: 'success'
+                color: 'success',
+                overlayColor: 'op-dark',
+                overlayClickClose: true,
+                overlay: true
             }
         });
     };
