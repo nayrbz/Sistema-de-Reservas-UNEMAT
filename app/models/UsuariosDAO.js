@@ -13,18 +13,24 @@ UsuariosDAO = function (connection)
     {
         const text =
                 `SELECT 
-                        u.id AS id, u.nome AS nome, u.usr AS usr, u.ativo AS ativo, u.admin AS admin
+                    u.id AS id, u.nome AS nome, u.usr AS usr, u.ativo AS ativo, u.admin AS admin
                 FROM
-                        ${this._tabela} u
+                    ${this._tabela} u
                 WHERE
-                        nome ILIKE \'${dados.txConsulta}\'
+                    nome ILIKE \'${dados.txConsulta}\'
                 ORDER BY
-                        nome
+                    nome
                 LIMIT
-                        ${dados.limit}
+                    ${dados.limit}
                 OFFSET
-                        ${dados.offset};`;
-
+                    ${dados.offset};
+                SELECT 
+                    COUNT(u.id)
+                FROM
+                    ${this._tabela} u
+                WHERE
+                    nome ILIKE \'${dados.txConsulta}\';`;
+//        console.log(text);
         this._pool.query(text, callback);
     };
     /*

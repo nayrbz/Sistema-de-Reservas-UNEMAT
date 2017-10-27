@@ -7,13 +7,32 @@ ObjetosDAO = function (connection)
     /*                 ['DESCRIAO', 'LIMIT', 'OFFSET']                          */
     this.buscaIntervalo = (adcionais, callback) =>
     {
-        let text = `SELECT o.id AS objetoId, o.descricao AS objetoDescricao, o.ativo AS objetoAtivo, t.descricao AS tipoObjetoDescricao, t.id AS tipoObjetoId
-                FROM ${this._tabela} o
-                INNER JOIN tipos_objeto t
-                ON o.tipo_objeto = t.id
-                WHERE o.descricao ILIKE \'${adcionais.txconsulta}\'
-                ORDER BY o.descricao ASC
-                LIMIT ${adcionais.limit} OFFSET ${adcionais.offset};`;
+        const text = `SELECT
+                        o.id AS objetoId, o.descricao AS objetoDescricao, o.ativo AS objetoAtivo, t.descricao AS tipoObjetoDescricao, t.id AS tipoObjetoId
+                    FROM
+                        ${this._tabela} o
+                    INNER JOIN
+                        tipos_objeto t
+                    ON
+                        o.tipo_objeto = t.id
+                    WHERE
+                        o.descricao ILIKE \'${adcionais.txconsulta}\'
+                    ORDER BY
+                        o.descricao ASC
+                    LIMIT
+                        ${adcionais.limit}
+                    OFFSET
+                        ${adcionais.offset};
+                    SELECT
+                        COUNT(o.id)
+                    FROM
+                        ${this._tabela} o
+                    INNER JOIN
+                        tipos_objeto t
+                    ON
+                        o.tipo_objeto = t.id
+                    WHERE
+                        o.descricao ILIKE \'${adcionais.txconsulta}\';`;
 
         this._pool.query(text, callback);
     };
@@ -24,8 +43,8 @@ ObjetosDAO = function (connection)
         const text = `SELECT * FROM ${this._tabela} WHERE descricao ILIKE \'${txBusca}\' LIMIT 1;`;
         this._pool.query(text, callback);
     };
-    
-    this.listarObjetosAtivosEmOrdemAlfabetica = (callback)=>
+
+    this.listarObjetosAtivosEmOrdemAlfabetica = (callback) =>
     {
         const text = `SELECT
                         *
@@ -35,7 +54,7 @@ ObjetosDAO = function (connection)
                         ativo = 'true'
                     ORDER BY
                         descricao;`;
-        
+
         this._pool.query(text, callback);
     };
 

@@ -52,7 +52,37 @@ class OferecimentosDAO
                     LIMIT
                         ${dados.limit}
                     OFFSET
-                        ${dados.offset};`;
+                        ${dados.offset};
+                    SELECT
+                        COUNT(ofer.id)
+                    FROM
+                        oferecimentos ofer
+                    INNER JOIN
+                        periodos p
+                    ON
+                        p.id = ofer.periodo
+                    LEFT JOIN
+                        disciplinas di
+                    ON
+                        di.id = ofer.disciplina
+                    LEFT JOIN
+                        cursos cur
+                    ON
+                        cur.id = di.curso
+                    INNER JOIN
+                        usuarios us
+                    ON
+                        us.id = ofer.usuario
+                    WHERE
+                        ofer.ativo = TRUE 
+                    AND
+                        (
+                            di.descricao ilike \'${dados.txBusca}\'
+                        OR
+                            us.usr ilike \'${dados.txBusca}\'
+                        OR
+                            us.nome ilike \'${dados.txBusca}\'
+                        );`;
 //        console.log(text);
         this._pool.query(text, callback);
     }

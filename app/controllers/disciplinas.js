@@ -22,9 +22,12 @@ module.exports.recuperarTodas = (application, request, response) =>
             console.log('Erro na recuperação das disciplinas por intervalo', error);
         } else
         {
+            const count = results.rows[results.rows.length -1].count;
+            results.rows.pop();
+            
             response.send(JSON.stringify(
                     {
-                        total: results.rowCount,
+                        total: count,
                         rows: results.rows
                     }
             ));

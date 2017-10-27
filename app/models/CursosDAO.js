@@ -9,10 +9,24 @@ class CursosDAO
     /*                 ['DESCRIAO', 'LIMIT', 'OFFSET']                                 */
     buscaIntervalo(adcionais, callback)
     {
-        let text = `SELECT * FROM ${this._tabela}
-                    WHERE descricao ILIKE \'${adcionais.txconsulta}\'
-                    ORDER BY descricao ASC
-                    LIMIT ${adcionais.limit} OFFSET ${adcionais.offset};`;
+        const text = `SELECT 
+                        *
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        descricao ILIKE \'${adcionais.txconsulta}\'
+                    ORDER BY
+                        descricao ASC
+                    LIMIT
+                        ${adcionais.limit}
+                    OFFSET
+                        ${adcionais.offset};
+                    SELECT 
+                        COUNT(id)
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        descricao ILIKE \'${adcionais.txconsulta}\';`;
         this._pool.query(text, callback);
     }
 

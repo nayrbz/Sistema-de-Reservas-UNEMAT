@@ -27,7 +27,17 @@ class DisciplinasDAO
                     LIMIT
                         ${adcionais.limit}
                     OFFSET
-                        ${adcionais.offset};`;
+                        ${adcionais.offset};
+                    SELECT
+                        COUNT(d.ativo)
+                    FROM
+                        ${this._tabela} d
+                    INNER JOIN
+                        cursos c ON c.id = d.curso
+                    WHERE
+                        d.descricao
+                    ILIKE
+                        \'${adcionais.txconsulta}\';`;
 //        console.log(text);
         this._pool.query(text, callback);
     }

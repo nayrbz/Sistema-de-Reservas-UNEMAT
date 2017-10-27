@@ -7,10 +7,25 @@ TiposObjetosDAO = function (connection)
     /*                 ['DESCRIAO', 'LIMIT', 'OFFSET']                                 */
     this.buscaIntervalo = (adcionais, callback) =>
     {
-        let text = `SELECT * FROM ${this._tabela}
-                    WHERE descricao ILIKE \'${adcionais.txconsulta}\'
-                    ORDER BY descricao ASC
-                    LIMIT ${adcionais.limit} OFFSET ${adcionais.offset};`;
+        const text = `SELECT
+                        *
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        descricao ILIKE \'${adcionais.txconsulta}\'
+                    ORDER BY
+                        descricao ASC
+                    LIMIT
+                        ${adcionais.limit}
+                    OFFSET
+                        ${adcionais.offset};
+                    SELECT
+                        COUNT(id)
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        descricao ILIKE \'${adcionais.txconsulta}\';`;
+//        console.log(text);
         this._pool.query(text, callback);
     };
 

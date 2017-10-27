@@ -27,7 +27,14 @@ class PeriodosDAO
                     LIMIT
                         ${limit}
                     OFFSET
-                        ${offset};`;
+                        ${offset};
+                    SELECT
+                        COUNT(id)
+                    FROM
+                        ${this._tabela}
+                    WHERE
+                        nome ILIKE \'${txconsulta}\';`;
+//        console.log(text);
         this._pool.query(text, callback);
     }
     

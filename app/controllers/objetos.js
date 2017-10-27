@@ -21,9 +21,12 @@ module.exports.recuperarObjetos = (application, request, response) =>
             console.log('Erro na recuperação de objetos: ', error);
         } else
         {
+            const count = results.rows[results.rows.length -1].count;
+            results.rows.pop();
+            
             response.send(JSON.stringify(
                     {
-                        total: results.rowCount,
+                        total: count,
                         rows: results.rows
                     }
             ));
