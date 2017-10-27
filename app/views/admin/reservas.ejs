@@ -283,11 +283,6 @@
             }
     );
 
-    function utxToData(val) {
-        var d = moment.unix(val);
-        return moment(d).format('DD/MM/YYYY');
-    }
-
     function atualizaSumarioDatas()
     {
         var datas = $('#reservadatas').calendar('getDates');
