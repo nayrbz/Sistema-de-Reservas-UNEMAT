@@ -5,7 +5,7 @@
             <div class="row cell-auto-size">
                 <div class="tabcontrol2" data-role="tabcontrol">
                     <ul class="tabs">
-                        <li><a href="#frame_1_1">Operações</a></li>
+                        <li><a href="#frame_1_1">Reservas</a></li>
                         <li><a href="#frame_1_2">Manutenção</a></li>
                     </ul>
                     <div class="frames bg-grayLight">
@@ -49,7 +49,7 @@
                             </div>
                             <div class="panel success">
                                 <div class="heading">
-                                    <span class="title">Reserva</span>
+                                    <span class="title">Horários e datas</span>
                                 </div>
                                 <div class="row">
                                     <div class="cell colspan4">
@@ -172,7 +172,7 @@
                                     </div>
                                     <div class="cell colspan4">
                                         <div data-role="calendar" id="reservadatas" data-day-click="atualizaSumarioDatas()" data-multi-select="true" data-locale="pt"></div>
-                                        <label class="block">Descrição da operação:</label>
+                                        <label class="block">Descrição da reserva:</label>
                                         <div class="input-control text" style="width: 100%;">
                                             <textarea
                                                 id="descricaooperacao"
@@ -182,7 +182,7 @@
                                     <div class="cell colspan3">
                                         <div class="panel success">
                                             <div class="heading">
-                                                <span class="title">Sumário</span>
+                                                <span class="title">Resumo da reserva</span>
                                             </div>
                                             <input id="oferecimentoid" value="" hidden="">
                                             <p>Oferecimento: <span id="oferecimentoselecionado"></span></p>
@@ -343,7 +343,7 @@
         ],
         onClickRow: function (row)
         {
-            $('#oferecimentoselecionado').html('<strong>' + row.usuariousr + '-' + row.periodonome + '-' + row.disciplina + '</strong>');
+            $('#oferecimentoselecionado').html('<strong>' + row.usuarionome + '-' + row.periodonome + '-' + row.disciplina + '</strong>');
             $('#oferecimentoselecionado').val(row.usuariousr + '-' + row.periodonome + '-' + row.disciplina);
             $('#oferecimentoid').val(row.id);
         }
@@ -365,7 +365,7 @@
             $('#objetoid').val(row.objetoid);
         }
     });
-    
+
     /*
      * Implementação da aba de manutenção
      */
@@ -449,7 +449,7 @@
                     if ($(this).is(':checked'))
                         horarioCancelamentoReserva.push($(this).val());
                 });
-                
+
                 if (horarioCancelamentoReserva.length !== 0)
                     $.post('cancelar-reserva',
                             {
@@ -475,7 +475,7 @@
             admin.dialog(titulo, conteudo, callback);
         }
     });
-    
+
     $('input[name="datamanutencao"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -523,7 +523,7 @@
                 });
             }
     );
-    
+
     function formatadorCelula(val)
     {
         if (val)
