@@ -246,7 +246,7 @@
         var diasSelecionados = '';
         
         for (var i = 0; i < datas.length; i++) {
-            diasSelecionados += datas[i].replace("-", "/").replace("-", "/") + ' - ';
+            diasSelecionados += datas[i].replace(/-/g, "/") + ' - ';
         }
         
         diasSelecionados = diasSelecionados.substring(0, diasSelecionados.length -3);
